@@ -1,23 +1,21 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+  <% if !current_user %>
+    <a href='/sign_up'>Sign Up</a>
+    <form action='/login' method='post'>
+      <input type='text' name='first_name' placeholder='Name'>
+      <input type='password' name='password' placeholder='Password'>
+      <input type='submit' value='Log In'>
+    </form>
+  <% elsif current_user %>
+    <a href='/sign_out'>Sign out</a>
+
+    <a href='/event/new'>Create new event</a>
+    <% current_user.created_events.each do |event| %>
+      <p>Name: <%= event.name%> Location: <%= event.location %>
+      <br> Starts at: <%= event.starts_at%> Ends at: <%= event.ends_at%></p>
+      <a href='/event/<%= event.id %>/edit'>edit this event</a>
+      <a href='/event/<%= event.id %>/delete'>delete this event</a>
+    <% end%>
+  <% end %>
 </div>

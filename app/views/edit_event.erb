@@ -1,0 +1,7 @@
+    <form action='/event/<%= @event.id %>/edit' method='post'>
+      <input type='text' name='name' placeholder='Name' value='<%= @event.name %>'>
+      <input type='text' name='location' placeholder='Location' value='<%= @event.location %>'>
+      <input type='datetime' name='starts_at' placeholder='start date/time - ' value='<%= @event.starts_at %>'>
+      <input type='datetime' name='ends_at' placeholder='end date/time' value='<%= @event.ends_at %>'>
+      <input type='submit' value='Update event!'>
+    </form>
